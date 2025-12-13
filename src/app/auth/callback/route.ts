@@ -7,13 +7,18 @@ export async function GET(request: Request) {
   const type = requestUrl.searchParams.get("type")
   const origin = requestUrl.origin
 
+  console.log("Auth callback - type:", type, "code:", code ? "exists" : "missing")
+
   if (code) {
     const supabase = await createClient()
 
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
+    console.log("exchangeCodeForSession - error:", error?.message, "user:", data?.user?.id)
+
     if (!error && data.user) {
       if (type === "recovery") {
+        console.log("Redirecting to reset-password page")
         return NextResponse.redirect(`${origin}/reset-password`)
       }
 
@@ -34,7 +39,15 @@ export async function GET(request: Request) {
 
       return NextResponse.redirect(`${origin}/dashboard`)
     }
+
+    if (error) {
+      console.error("Auth callback error:", error.message)
+      if (type === "recovery") {
+        return NextResponse.redirect(`${origin}/reset-password?error=access_denied&error_description=${encodeURIComponent(error.message)}`)
+      }
+    }
   }
 
+  console.log("No code found, redirecting to login")
   return NextResponse.redirect(`${origin}/login`)
 }
