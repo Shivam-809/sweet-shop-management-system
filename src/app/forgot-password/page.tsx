@@ -43,9 +43,18 @@ export default function ForgotPasswordPage() {
           <CardContent className="pt-8 text-center">
             <div className="text-6xl mb-4">📧</div>
             <h2 className="text-2xl font-bold text-rose-600 mb-2">Check Your Email!</h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 mb-2">
               We've sent a password reset link to <strong>{email}</strong>
             </p>
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4 text-sm text-left">
+              <p className="font-semibold text-amber-800 mb-2">⚠️ Important Notes:</p>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                <li>Check your spam/junk folder</li>
+                <li>Email may take a few minutes to arrive</li>
+                <li>Link expires in 24 hours</li>
+                <li>Using default email provider (2 emails/hour limit)</li>
+              </ul>
+            </div>
             <Link href="/login">
               <Button className="bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600">
                 Back to Login
