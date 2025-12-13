@@ -38,18 +38,25 @@ export default function RegisterPage() {
     }
 
     setSuccess(true)
-    router.refresh()
-    setTimeout(() => router.push("/dashboard"), 1500)
+    setLoading(false)
   }
 
   if (success) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-rose-50 to-amber-50 p-4">
         <Card className="w-full max-w-md border-rose-200 shadow-xl">
-          <CardContent className="pt-8 text-center">
-            <div className="text-6xl mb-4">✨</div>
-            <h2 className="text-2xl font-bold text-rose-600 mb-2">Welcome to Sweet Shop!</h2>
-            <p className="text-gray-600">Taking you to your dashboard...</p>
+          <CardContent className="pt-8 text-center space-y-4">
+            <div className="text-6xl mb-4">📧</div>
+            <h2 className="text-2xl font-bold text-rose-600 mb-2">Check Your Email!</h2>
+            <p className="text-gray-600">We've sent a verification link to <strong>{email}</strong></p>
+            <p className="text-sm text-gray-500">Click the link in the email to verify your account, then you can log in.</p>
+            <div className="pt-4">
+              <Link href="/login">
+                <Button className="bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600">
+                  Go to Login
+                </Button>
+              </Link>
+            </div>
           </CardContent>
         </Card>
       </div>
