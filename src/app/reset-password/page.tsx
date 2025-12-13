@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,6 +16,20 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const errorParam = searchParams.get("error")
+    const errorDescription = searchParams.get("error_description")
+    
+    if (errorParam === "access_denied" || errorDescription) {
+      if (errorDescription?.includes("expired") || errorDescription?.includes("invalid")) {
+        setError("Password reset link has expired or is invalid. Please request a new one.")
+      } else {
+        setError(errorDescription || "An error occurred. Please try again.")
+      }
+    }
+  }, [searchParams])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -44,6 +59,37 @@ export default function ResetPasswordPage() {
 
     setSuccess(true)
     setTimeout(() => router.push("/login"), 2000)
+  }
+
+  if (error && error.includes("expired")) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-rose-50 to-amber-50 p-4">
+        <Card className="w-full max-w-md border-rose-200 shadow-xl">
+          <CardContent className="pt-8 text-center">
+            <div className="text-6xl mb-4">⏰</div>
+            <h2 className="text-2xl font-bold text-rose-600 mb-2">Link Expired</h2>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4 text-sm text-left">
+              <p className="font-semibold text-amber-800 mb-2">💡 Tips:</p>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                <li>Reset links expire in 1 hour</li>
+                <li>Request a new reset link</li>
+                <li>Check your spam folder</li>
+                <li>Click the link immediately when received</li>
+              </ul>
+            </div>
+            <Link href="/forgot-password">
+              <Button className="w-full bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600">
+                Request New Reset Link
+              </Button>
+            </Link>
+            <Link href="/login" className="block mt-4 text-sm text-rose-600 hover:underline">
+              Back to Login
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   if (success) {
