@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
   const { email, password, fullName } = await request.json()
+  const origin = new URL(request.url).origin
 
   const supabase = await createClient()
 
@@ -11,7 +12,7 @@ export async function POST(request: Request) {
     password,
     options: {
       data: { full_name: fullName },
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/callback`
+      emailRedirectTo: `${origin}/auth/callback`
     }
   })
 
