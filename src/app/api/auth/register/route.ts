@@ -31,16 +31,10 @@ export async function POST(request: Request) {
       role: 'user'
     })
 
-    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password
+    return NextResponse.json({ 
+      user: data.user, 
+      message: 'Please check your email to verify your account' 
     })
-
-    if (signInError) {
-      return NextResponse.json({ error: signInError.message }, { status: 400 })
-    }
-
-    return NextResponse.json({ user: signInData.user, session: signInData.session })
   }
 
   return NextResponse.json({ user: data.user })
