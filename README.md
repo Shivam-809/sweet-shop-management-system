@@ -4,7 +4,7 @@ A full-stack e-commerce web application for managing and purchasing sweets and c
 
 ## 📌 Git Repository
 
-[GitHub Repository Link](https://github.com/your-username/sweet-shop)
+[GitHub Repository Link](https://github.com/Shivam-809/sweet-shop-management-system.git)
 
 ## 📖 Project Overview
 
@@ -223,7 +223,7 @@ curl -X POST http://localhost:3000/api/auth/login \
 
 ## 🌐 Live Deployment
 
-**Deployed Application**: [https://sweet-shop.vercel.app](https://sweet-shop.vercel.app)
+**Deployed Application**: [https://sweet-shop-management-system-eox2.vercel.app/)
 
 *Deploy your own instance:*
 - [Deploy on Vercel](https://vercel.com/new)
