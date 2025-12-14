@@ -137,7 +137,7 @@ npm start
 
 ## 📸 Screenshots
 
-### Login Page
+### Login Page 
 ![Login Page](https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Screenshot-2025-12-14-192155-1765720461714.png?width=8000&height=8000&resize=contain)
 *Secure user authentication with email/password and Google OAuth*
 
